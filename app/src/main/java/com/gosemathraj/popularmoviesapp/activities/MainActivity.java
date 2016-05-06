@@ -3,6 +3,7 @@ package com.gosemathraj.popularmoviesapp.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.relative,new Fragment_Movies_Home()).commit();
+        Fragment f1 = fragmentManager.findFragmentById(R.id.relative);
+        if(f1 == null) {
+            fragmentManager.beginTransaction().add(R.id.relative, new Fragment_Movies_Home(), "FIRST_FRAGMENT").commit();
+        }
     }
 
     @Override

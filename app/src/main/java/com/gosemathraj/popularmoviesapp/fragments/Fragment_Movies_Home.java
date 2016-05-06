@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class Fragment_Movies_Home extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerViewCustomAdapter recyclerViewCustomAdapter;
     private String[] image_resources;
+    private String[] top_titles = {"English","Hindi","Popular","Latest","Retro","Top 10"};
 
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
@@ -53,7 +55,7 @@ public class Fragment_Movies_Home extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
         circlePageIndicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
@@ -92,7 +94,7 @@ public class Fragment_Movies_Home extends Fragment {
 
                 movieResult = response.body();
                 movieList = movieResult.getResult();
-                recyclerViewCustomAdapter = new RecyclerViewCustomAdapter(movieList, getContext());
+                recyclerViewCustomAdapter = new RecyclerViewCustomAdapter(movieList, getContext(),top_titles);
                 recyclerView.setAdapter(recyclerViewCustomAdapter);
                 recyclerViewCustomAdapter.notifyDataSetChanged();
                 setViewPagerData();
