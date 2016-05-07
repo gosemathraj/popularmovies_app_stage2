@@ -30,7 +30,7 @@ public class InnerRecyclerViewCustomAdapter extends RecyclerView.Adapter<InnerRe
     @Override
     public InnerMyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_single_item_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.inner_recyclerview_item_layout, parent, false);
         return new InnerMyViewHolder(view);
     }
 

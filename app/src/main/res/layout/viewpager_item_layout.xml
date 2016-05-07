@@ -8,7 +8,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/image_slider_imageview"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:padding="4dp"/>
+        android:scaleType="centerCrop" />
 
 </LinearLayout>

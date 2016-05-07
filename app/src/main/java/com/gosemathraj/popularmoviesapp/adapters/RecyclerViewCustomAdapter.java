@@ -6,12 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gosemathraj.popularmoviesapp.R;
 import com.gosemathraj.popularmoviesapp.models.Movie;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_main_recycler_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_layout_two_innerlayout,parent,false);
         return (new MyViewHolder(view));
     }
 

@@ -45,7 +45,7 @@ public class ViewPaderAdapter extends PagerAdapter{
 
         ImageView imageView = (ImageView) view.findViewById(R.id.image_slider_imageview);
 
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w185" + images[position]).resize(185,275).into(imageView);
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + images[position]).into(imageView);
         container.addView(view);
 
         return view;
