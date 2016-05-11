@@ -16,6 +16,8 @@ import com.gosemathraj.popularmoviesapp.adapters.RecyclerViewCustomAdapter;
 import com.gosemathraj.popularmoviesapp.adapters.ViewPaderAdapter;
 import com.gosemathraj.popularmoviesapp.models.Movie;
 import com.gosemathraj.popularmoviesapp.models.MovieResult;
+import com.gosemathraj.popularmoviesapp.models.MovieTrailers;
+import com.gosemathraj.popularmoviesapp.models.MovieTrailersAll;
 import com.gosemathraj.popularmoviesapp.utils.MovieApi;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -35,9 +37,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Fragment_Movies_Home extends Fragment {
 
-
-    private CirclePageIndicator circlePageIndicator;
-    private ViewPager viewPager;
+    private MovieTrailersAll mtrailersAll;
+    private List<MovieTrailers> mtrailers;
     private MovieResult movieResult;
     private List<Movie> movieList;
     private RecyclerView recyclerView;
@@ -45,8 +46,7 @@ public class Fragment_Movies_Home extends Fragment {
     private String[] image_resources;
     private String[] top_titles = {"English","Hindi","Popular","Latest","Retro","Top 10"};
 
-    private static int currentPage = 0;
-    private static int NUM_PAGES = 0;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle saveInstanceState){
@@ -57,10 +57,8 @@ public class Fragment_Movies_Home extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        viewPager = (ViewPager) view.findViewById(R.id.view_pager);
-        circlePageIndicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
-
         getMoviesList();
+
         return view;
     }
 
@@ -72,10 +70,6 @@ public class Fragment_Movies_Home extends Fragment {
             Movie m = movieList.get(i);
             image_resources[i] = m.getPoster_path();
         }
-
-        viewPager.setAdapter(new ViewPaderAdapter(image_resources,getContext()));
-        circlePageIndicator.setViewPager(viewPager);
-        autoStartViewPager();
     }
 
     private void getMoviesList() {
@@ -94,58 +88,15 @@ public class Fragment_Movies_Home extends Fragment {
 
                 movieResult = response.body();
                 movieList = movieResult.getResult();
-                recyclerViewCustomAdapter = new RecyclerViewCustomAdapter(movieList, getContext(),top_titles);
+                setViewPagerData();
+                recyclerViewCustomAdapter = new RecyclerViewCustomAdapter(movieList, getContext(), top_titles, image_resources);
                 recyclerView.setAdapter(recyclerViewCustomAdapter);
                 recyclerViewCustomAdapter.notifyDataSetChanged();
-                setViewPagerData();
             }
 
             @Override
             public void onFailure(Call<MovieResult> call, Throwable t) {
 
-            }
-        });
-    }
-
-    private void autoStartViewPager() {
-
-        final float density = getResources().getDisplayMetrics().density;
-        circlePageIndicator.setRadius(5 * density);
-
-        NUM_PAGES =image_resources.length;
-
-        // Auto start of viewpager
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == NUM_PAGES) {
-                    currentPage = 0;
-                }
-                viewPager.setCurrentItem(currentPage++, true);
-            }
-        };
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 3000, 3000);
-
-        // Pager listener over indicator
-        circlePageIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-                currentPage = position;
-            }
-
-            @Override
-            public void onPageScrolled(int pos, float arg1, int arg2) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int pos) {
             }
         });
     }

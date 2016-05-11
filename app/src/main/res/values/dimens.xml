@@ -34,4 +34,6 @@
     <dimen name="trailer_thumbnail_height">200dp</dimen>
     <dimen name="padding_size_large">12dp</dimen>
     <dimen name="padding_size_larger">16dp</dimen>
+
+    <dimen name="detail_backdrop_height">256dp</dimen>
 </resources>

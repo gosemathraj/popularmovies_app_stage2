@@ -8,21 +8,28 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.gosemathraj.popularmoviesapp.R;
+import com.gosemathraj.popularmoviesapp.models.Movie;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Created by iamsparsh on 5/5/16.
  */
 public class ViewPaderAdapter extends PagerAdapter{
 
+    private List<Movie> movieList;
     private String[] images;
     private Context context;
     private LayoutInflater inflater;
 
-    public ViewPaderAdapter(String[] images, Context context) {
+
+    public ViewPaderAdapter(String[] images,Context context,List<Movie> movieList) {
         this.images = images;
+        this.movieList = movieList;
         this.context = context;
     }
 
@@ -38,13 +45,19 @@ public class ViewPaderAdapter extends PagerAdapter{
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
 
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.viewpager_item_layout, container, false);
-
+        final View view = inflater.inflate(R.layout.viewpager_item_layout, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.image_slider_imageview);
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(v.getContext(),"position is "+position,Toast.LENGTH_LONG).show();
+            }
+        });
         Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + images[position]).into(imageView);
         container.addView(view);
 
@@ -57,4 +70,5 @@ public class ViewPaderAdapter extends PagerAdapter{
 
         return (view == (LinearLayout)object);
     }
+
 }

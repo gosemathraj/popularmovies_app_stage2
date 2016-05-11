@@ -12,7 +12,7 @@ public class Movie implements Parcelable{
     private String poster_path;
     private String overview;
     private String release_date;
-    private int id;
+    private String id;
     private String backdrop_path;
     private String popularity;
     private String vote_count;
@@ -50,11 +50,11 @@ public class Movie implements Parcelable{
         this.release_date = release_date;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -90,11 +90,12 @@ public class Movie implements Parcelable{
         this.vote_average = vote_average;
     }
 
-    protected Movie(Parcel in) {
+    public Movie(Parcel in) {
+        title = in.readString();
         poster_path = in.readString();
         overview = in.readString();
         release_date = in.readString();
-        id = in.readInt();
+        id = in.readString();
         backdrop_path = in.readString();
         popularity = in.readString();
         vote_count = in.readString();
@@ -121,10 +122,11 @@ public class Movie implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
         dest.writeString(poster_path);
         dest.writeString(overview);
         dest.writeString(release_date);
-        dest.writeInt(id);
+        dest.writeString(id);
         dest.writeString(backdrop_path);
         dest.writeString(popularity);
         dest.writeString(vote_count);
