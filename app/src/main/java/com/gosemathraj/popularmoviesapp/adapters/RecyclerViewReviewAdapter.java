@@ -58,3 +58,4 @@ public class RecyclerViewReviewAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 }
+

@@ -24,6 +24,7 @@ import java.util.TimerTask;
  */
 public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private List<List<Movie>> allMovies;
     private List<Movie> movieList;
     private String[] image_resources;
     private Context context;
@@ -33,11 +34,12 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
 
-    public RecyclerViewCustomAdapter(List<Movie> movieList,Context context,String[] toptitles,String[] image_resources) {
-        this.movieList = movieList;
+    public RecyclerViewCustomAdapter(List<List<Movie>> allMovies,Context context,String[] toptitles,String[] image_resources) {
+        this.allMovies = allMovies;
         this.context = context;
         this.toptitles = toptitles;
         this.image_resources = image_resources;
+        movieList = allMovies.get(0);
     }
 
     @Override
@@ -58,6 +60,27 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if(position == 0){
+            movieList = allMovies.get(0);
+        }
+        if(position == 1){
+            movieList = allMovies.get(0);
+        }
+        if(position == 2){
+            movieList = allMovies.get(1);
+        }
+        if(position == 3){
+            movieList = allMovies.get(2);
+        }
+        if(position == 4){
+            movieList = allMovies.get(3);
+        }
+        if(position == 5){
+            movieList = allMovies.get(5);
+        }
+        if(position == 6){
+            movieList = allMovies.get(0);
+        }
 
         switch(getItemViewType(position)){
 
@@ -70,8 +93,9 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
 
             case 2:
                 ((MyViewHolder_LayoutTwo)holder).textview_ttile.setText(toptitles[position - 1]);
-                ((MyViewHolder_LayoutTwo)holder).inner_recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
-                ((MyViewHolder_LayoutTwo)holder).inner_recyclerView.setAdapter(new InnerRecyclerViewCustomAdapter(movieList,context));
+                ((MyViewHolder_LayoutTwo)holder).inner_recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                ((MyViewHolder_LayoutTwo)holder).inner_recyclerView.setAdapter(new InnerRecyclerViewCustomAdapter(movieList, context));
+                String s = "hello";
                 break;
         }
     }

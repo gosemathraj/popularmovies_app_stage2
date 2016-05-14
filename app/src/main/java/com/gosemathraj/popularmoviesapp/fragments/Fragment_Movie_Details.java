@@ -3,6 +3,8 @@ package com.gosemathraj.popularmoviesapp.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import com.gosemathraj.popularmoviesapp.R;
 import com.gosemathraj.popularmoviesapp.activities.MovieDetailsActivity;
 import com.gosemathraj.popularmoviesapp.adapters.RecyclerViewReviewAdapter;
 import com.gosemathraj.popularmoviesapp.adapters.RecyclerViewTrailerAdapter;
+import com.gosemathraj.popularmoviesapp.database.DbHandler;
 import com.gosemathraj.popularmoviesapp.models.Movie;
 import com.gosemathraj.popularmoviesapp.models.MovieReviews;
 import com.gosemathraj.popularmoviesapp.models.MovieReviewsAll;
@@ -67,10 +70,9 @@ public class Fragment_Movie_Details extends Fragment {
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        m = activity.returnMovie();
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_save);
 
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(m.getTitle());
+        m = activity.returnMovie();
 
         title = (TextView) view.findViewById(R.id.detail_title);
         ratings = (TextView)view.findViewById(R.id.detail_ratings);
@@ -89,6 +91,24 @@ public class Fragment_Movie_Details extends Fragment {
 
         getTrailerInfo();
         getReviewInfo();
+
+        final DbHandler dbHandler = new DbHandler(getContext());
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(dbHandler.isMoviePresent(m.getId()) == false){
+
+                    dbHandler.addMovie(m);
+                    Snackbar.make(v,"Movie Added",Snackbar.LENGTH_LONG).setAction("ACTION",null).show();
+                }else{
+
+                    dbHandler.deleteMovie(m);
+                    Snackbar.make(v,"Movie Deleted",Snackbar.LENGTH_LONG).setAction("ACTION",null).show();
+                }
+            }
+        });
         return view;
     }
 

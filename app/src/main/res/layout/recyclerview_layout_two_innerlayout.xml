@@ -18,22 +18,16 @@
             android:layout_height="wrap_content"
             android:id="@+id/inner_recyclerview_top_title"
             android:typeface="serif"
-            android:text="English"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-        <View
-            android:layout_width="150dp"
-            android:layout_height="1dp"
-            android:background="@color/cardview_dark_background"
-            android:layout_centerInParent="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/inner_recyclerview_top_seemore"
             android:layout_alignParentRight="true"
-            android:text="See all >"
+            android:text="More >>>"
+            android:paddingTop="5dp"
             android:textColor="#e02626"/>
     </RelativeLayout>
 

@@ -27,4 +27,19 @@ public interface MovieApi {
 
     @GET("/3/movie/{id}/reviews?api_key=a6163838876304722868d717a499e5e1")
     Call<MovieReviewsAll> loadMovieReviews(@Path("id") String id);
+
+    @GET("/3/discover/movie?api_key=a6163838876304722868d717a499e5e1&sort_by=popularity.desc")
+    Call<MovieResult> loadPopularMovies();
+
+    @GET("/3/discover/movie?api_key=a6163838876304722868d717a499e5e1&sort_by=vote_average.desc")
+    Call<MovieResult> loadHighestRatedMovies();
+
+    @GET("/3/discover/movie?api_key=a6163838876304722868d717a499e5e1&sort_by=revenue.desc")
+    Call<MovieResult> loadHighestGrossingMovies();
+
+    @GET("/3/discover/movie?api_key=a6163838876304722868d717a499e5e1&primary_release_year=2016")
+    Call<MovieResult> loadThisYearReleaseMovies();
+
+    @GET("/3/movie/upcoming?api_key=a6163838876304722868d717a499e5e1")
+    Call<MovieResult> loadUpcomingMovies();
 }

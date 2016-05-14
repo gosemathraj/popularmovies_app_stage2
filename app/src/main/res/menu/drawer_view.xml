@@ -18,24 +18,21 @@
             android:icon="@mipmap/ic_launcher"
             android:title="@string/watched" />
 
-        <item
-            android:id="@+id/playlist"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/playlist" />
-
         <item android:title="@string/sort_by">
 
             <menu>
 
+                <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/popularity"
                     android:icon="@mipmap/ic_launcher"
                     android:title="@string/popularity" />
 
                 <item
-                    android:id="@+id/rating"
+                    android:id="@+id/rate"
                     android:icon="@mipmap/ic_launcher"
                     android:title="@string/rating" />
+                </group>
 
             </menu>
 

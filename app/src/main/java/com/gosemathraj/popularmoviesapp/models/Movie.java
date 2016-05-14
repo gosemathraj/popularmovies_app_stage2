@@ -3,6 +3,8 @@ package com.gosemathraj.popularmoviesapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by iamsparsh on 3/5/16.
  */
@@ -17,6 +19,8 @@ public class Movie implements Parcelable{
     private String popularity;
     private String vote_count;
     private String vote_average;
+
+    public Movie(){}
 
     public String getTitle() {
         return title;
