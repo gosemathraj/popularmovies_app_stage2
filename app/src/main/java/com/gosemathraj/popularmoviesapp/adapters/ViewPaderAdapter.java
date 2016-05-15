@@ -1,6 +1,7 @@
 package com.gosemathraj.popularmoviesapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.gosemathraj.popularmoviesapp.R;
+import com.gosemathraj.popularmoviesapp.activities.MovieDetailsActivity;
 import com.gosemathraj.popularmoviesapp.models.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -47,19 +49,23 @@ public class ViewPaderAdapter extends PagerAdapter{
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
 
+        final Movie m = movieList.get(position);
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.viewpager_item_layout, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.image_slider_imageview);
+
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + images[position]).into(imageView);
+        container.addView(view);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(v.getContext(),"position is "+position,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                intent.putExtra("movie", m);
+                context.startActivity(intent);
             }
         });
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + images[position]).into(imageView);
-        container.addView(view);
 
         return view;
 

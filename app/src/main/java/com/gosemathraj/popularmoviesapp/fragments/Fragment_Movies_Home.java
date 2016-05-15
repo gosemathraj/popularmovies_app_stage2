@@ -48,6 +48,8 @@ public class Fragment_Movies_Home extends Fragment {
     private ArrayList<Movie> movieList = new ArrayList<>();
     private MovieResult movieResult;
 
+    private static boolean loaded;
+
     private ArrayList<List<Movie>> allMovies = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerViewCustomAdapter recyclerViewCustomAdapter;
@@ -68,9 +70,20 @@ public class Fragment_Movies_Home extends Fragment {
 
 
         if(saveInstanceState == null) {
-            getPopularMovies();
-        }else{
+            if(loaded == false) {
+                getPopularMovies();
+            }else{
+                allMovies.add(popularMovies);
+                allMovies.add(highestRateMovies);
+                allMovies.add(upcomingMovies);
+                allMovies.add(highestGrossingMovies);
+                allMovies.add(thisYearReleaseMovies);
+                allMovies.add(movieList);
 
+                String s2 = "hello";
+                setsavedInstanceLayout();
+            }
+        }else if(loaded == true){
             allMovies.add(popularMovies);
             allMovies.add(highestRateMovies);
             allMovies.add(upcomingMovies);
@@ -80,8 +93,36 @@ public class Fragment_Movies_Home extends Fragment {
 
             String s2 = "hello";
             setsavedInstanceLayout();
+        }else{
+            getPopularMovies();
         }
         return view;
+    }
+
+    private boolean checkDataState() {
+
+        if(allMovies.size() == 6){
+            for(int i = 0;i < 6;i++) {
+                if (checkSingleData(allMovies.get(i))) {
+                        return false;
+                }
+            }
+        }else{
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkSingleData(List<Movie> ml) {
+
+        for(int j = 0;j < ml.size();j++){
+
+            if(ml.get(j) == null){
+                return false;
+            }
+        }
+        return true;
     }
 
     private void setsavedInstanceLayout() {
@@ -290,7 +331,7 @@ public class Fragment_Movies_Home extends Fragment {
                 movieList = (ArrayList<Movie>) movieResult.getResult();
                 allMovies.add(movieList);
 
-
+                loaded = true;
 
                 int count = allMovies.size();
                 String s = "hello";
@@ -306,14 +347,6 @@ public class Fragment_Movies_Home extends Fragment {
             }
         });
     }
-
-
-
-
-
-
-
-
 
 
 }

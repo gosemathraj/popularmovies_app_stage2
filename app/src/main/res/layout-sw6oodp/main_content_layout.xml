@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="mattch_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/tablet_framelayout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <fragment
+        android:id="@+id/fragment_allmovies"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:name="com.gosemathraj.popularmoviesapp.fragments.Fragment_Movies_Home">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_selected_movies"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:name="com.gosemathraj.popularmoviesapp.fragments.Fragment_Movie_Details">
+    </fragment>
+
+</LinearLayout>
